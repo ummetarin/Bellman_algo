@@ -3,14 +3,18 @@
 using namespace std;
 
 void bellman(int graph[][3],int V,int E,int src){
+    //initialize a distance array to count distance from all vertex
     int dis[V];
 
+    //initially it will remain infinity
     for(int i=0;i<V;i++){
            dis[i]=INT_MAX;
      }
-
+  
+    //set src to 0
     dis[src]=0;
 
+    //if u+cost(u,v)<v then v=u+cost(u,v)
     for(int i=0;i<V-1;i++){
         for(int j=0;j<E;j++){
              if (dis[graph[j][0]] != INT_MAX && dis[graph[j][0]] + graph[j][2] < dis[graph[j][1]]) {
@@ -18,7 +22,8 @@ void bellman(int graph[][3],int V,int E,int src){
              }
         }
     }
-
+ 
+    //cheak the negative cycle
     for(int i=0;i<E;i++){
          int x=graph[i][0];
          int y=graph[i][1];
@@ -28,6 +33,7 @@ void bellman(int graph[][3],int V,int E,int src){
          }
    }
    
+   //print the sortest path of this graph
    cout<<"shortest path of Bellman is = ";
    for(int i=0;i<V;i++){
        cout<<i<<"    "<<dis[i]<<endl;
